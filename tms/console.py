@@ -51,10 +51,14 @@ class Console(tk.Frame):
         self.alive = False
         # write exit() to the console in order to stop it running
         self.p.stdin.write("exit()\n".encode())
-        self.p.stdin.flush()
+        try:
+            self.p.stdin.flush()
+        except OSError:
+            pass
         # call the destroy methods to properly destroy widgets
         self.ttytext.destroy()
         tk.Frame.destroy(self)
+        self.p.kill()
         
     def enter(self, event):
         """The <Return> key press handler"""
@@ -77,7 +81,10 @@ class Console(tk.Frame):
         string = self.ttytext.get(1.0, tk.END)[self.line_start:]
         self.line_start += len(string)
         self.p.stdin.write(string.encode())
-        self.p.stdin.flush()
+        try:
+            self.p.stdin.flush()
+        except OSError:
+            self.write("Process has stoped\n")
 
     def on_bkspace(self, event):
         pass
@@ -132,7 +139,6 @@ class Console(tk.Frame):
         self.ttytext.insert(tk.END, string)
         self.ttytext.see(tk.END)
         self.line_start += len(string)
-        self.ttytext.inst_trigger()
         
 if __name__ == '__main__':
     root = tk.Tk()
