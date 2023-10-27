@@ -44,6 +44,13 @@ for spigotDestination in spigotDestinations:
         os.makedirs(spigotDestination)
     shutil.copy(path.join(Directory.COMPILE_SPIGOT.value, "server.jar"), path.join(spigotDestination,"server.jar"))
 
+with requests.get(config.getValue("bungee"), allow_redirects=True) as request:
+    with open(path.join(Directory.COMPILE_BUNGEE.value, "proxy.jar"), "wb") as file:
+        file.write(request.content)
+if not path.exists(Directory.RUNTIME_COMPAT_BUNGEE.value):
+    os.makedirs(Directory.RUNTIME_COMPAT_BUNGEE.value)
+shutil.copy(path.join(Directory.COMPILE_BUNGEE.value, "proxy.jar"), path.join(Directory.RUNTIME_COMPAT_BUNGEE.value, "proxy"))
+
 if not path.exists(Directory.COMPILE_WATERFALL.value):
     os.makedirs(Directory.COMPILE_WATERFALL.value)
 print("Downloading waterfall...")
