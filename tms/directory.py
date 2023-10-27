@@ -7,6 +7,7 @@ class Directory(Enum):
     COMPILE = path.join(WORKSPACE, "resources")
     COMPILE_PAPER = path.join(COMPILE, "paper")
     COMPILE_SPIGOT = path.join(COMPILE, "spigot")
+    COMPILE_WATERFALL = path.join(COMPILE, "waterfall")
     RUNTIMES = path.join(WORKSPACE, "runtimes")
     RUNTIME_COMPAT = path.join(RUNTIMES, "compat")
     RUNTIME_COMPAT_INSTANCES = path.join(RUNTIME_COMPAT, "instances")
