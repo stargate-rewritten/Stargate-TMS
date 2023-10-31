@@ -16,15 +16,25 @@ class NetworkStage():
     
     def run(self):
         print("Starting network instances...")
-        network_console_paper1 = Console(self.paperCmd, tkinter.Toplevel(self.tkRoot), Directory.RUNTIME_NETWORK_PAPER_1.value)
-        network_console_paper2 = Console(self.paperCmd, tkinter.Toplevel(self.tkRoot), Directory.RUNTIME_NETWORK_PAPER_2.value)
-        network_console_waterfall = Console(self.waterfallCmd, self.tkRoot, Directory.RUNTIME_NETWORK_WATERFALL.value, exitCmd="end")
+        self.consoles = {
+            "paper1" : Console(self.paperCmd, tkinter.Toplevel(self.tkRoot), Directory.RUNTIME_NETWORK_PAPER_1.value),
+            "paper2" : Console(self.paperCmd, tkinter.Toplevel(self.tkRoot), Directory.RUNTIME_NETWORK_PAPER_2.value),
+            "waterfall" : Console(self.waterfallCmd, self.tkRoot, Directory.RUNTIME_NETWORK_WATERFALL.value, exitCmd="end"),
+            }
         Thread( target=self.handleInput ).start()
         self.tkRoot.protocol("WM_DELETE_WINDOW", self._stop)
         self.tkRoot.mainloop()
     
     def _stop(self):
         self.lineReader.disable()
+        threads = []
+        for key in self.consoles:
+            thread = Thread(target=self.consoles[key].stopProcess)
+            threads.append(thread)
+            thread.start()
+        
+        for thread in threads:
+            thread.join()
         self.tkRoot.destroy()
     
     def handleInput(self):

@@ -15,13 +15,14 @@ class FeaturesStage:
         
     def run(self):
         print("Starting features instance...")
-        features_console = Console(self.paperCmd, self.tkRoot, Directory.RUNTIME_FEATURES_PAPER.value)
+        self.features_console = Console(self.paperCmd, self.tkRoot, Directory.RUNTIME_FEATURES_PAPER.value)
         self.tkRoot.protocol("WM_DELETE_WINDOW", self._stop)
         Thread( target=self.handleInput ).start()
         self.tkRoot.mainloop()
         
     def _stop(self):
         self.lineReader.disable()
+        self.features_console.stopProcess()
         self.tkRoot.destroy()
         
     def handleInput(self):

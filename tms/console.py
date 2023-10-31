@@ -1,7 +1,6 @@
 import tkinter as tk
 import subprocess
 import queue
-import os
 from threading import Thread
 
 
@@ -9,32 +8,27 @@ class Console(tk.Frame):
     def __init__(self, cmd : str, parent=None, workDir : str=".", exitCmd : str = "stop", **kwargs, ):
         tk.Frame.__init__(self, parent, **kwargs)
         self.parent = parent
+        self.parent.title(workDir)
 
         # create widgets
         self.ttytext = tk.Text(self, wrap=tk.WORD)
         self.ttytext.pack(fill=tk.BOTH, expand=True)
-
-        self.p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stdin=subprocess.PIPE,
-                                  stderr=subprocess.PIPE, creationflags=subprocess.CREATE_NO_WINDOW, cwd=workDir)
-
+        
+        # a daemon to keep track of the threads so they can stop running
+        self.alive = True
+        self.exitCmd = exitCmd
+        self.workDir = workDir
+        self.cmd = cmd
+        
 
         # make queues for keeping stdout and stderr whilst it is transferred between threads
         self.outQueue = queue.Queue()
         self.errQueue = queue.Queue()
+        
+        self.startProcess()
 
         # keep track of where any line that is submitted starts
         self.line_start = 0
-
-        # a daemon to keep track of the threads so they can stop running
-        self.alive = True
-        self.exitCmd = exitCmd
-        
-        # start the functions that get stdout and stderr in separate threads
-        Thread(target=self.readfromproccessout).start()
-        Thread(target=self.readfromproccesserr).start()
-
-        # start the write loop in the main thread
-        self.writeloop()
 
         # key bindings for events
         self.ttytext.bind("<Return>", self.enter)
@@ -47,6 +41,15 @@ class Console(tk.Frame):
         self.pack(fill=tk.BOTH, expand=True)
         self.ttytext.focus_force()
 
+    def startProcess(self):
+        self.p = subprocess.Popen(self.cmd, stdout=subprocess.PIPE, stdin=subprocess.PIPE,
+                                  stderr=subprocess.PIPE, creationflags=subprocess.CREATE_NO_WINDOW, cwd=self.workDir)
+        # start the functions that get stdout and stderr in separate threads
+        Thread(target=self.readfromproccessout).start()
+        Thread(target=self.readfromproccesserr).start()
+        # start the write loop in the main thread
+        self.writeloop()
+
     def destroy(self):
         """This is the function that is automatically called when the widget is destroyed."""
         self.alive = False
@@ -54,6 +57,20 @@ class Console(tk.Frame):
         self.ttytext.destroy()
         tk.Frame.destroy(self)
         self.p.kill()
+    
+    def stopProcess(self):
+        self.alive = False
+        self.p.stdin.write((self.exitCmd + "\n").encode())
+        try:
+            self.p.stdin.flush()
+        except OSError:
+            pass
+        self.p.wait()
+    
+    def restart(self):
+        self.stopProcess()
+        self.alive = True
+        self.startProcess()
         
     def enter(self, event):
         """The <Return> key press handler"""
