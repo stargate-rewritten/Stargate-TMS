@@ -6,7 +6,7 @@ from threading import Thread
 
 
 class Console(tk.Frame):
-    def __init__(self, cmd : str, parent=None, workDir : str=".", **kwargs, ):
+    def __init__(self, cmd : str, parent=None, workDir : str=".", exitCmd : str = "stop", **kwargs, ):
         tk.Frame.__init__(self, parent, **kwargs)
         self.parent = parent
 
@@ -27,6 +27,7 @@ class Console(tk.Frame):
 
         # a daemon to keep track of the threads so they can stop running
         self.alive = True
+        self.exitCmd = exitCmd
         
         # start the functions that get stdout and stderr in separate threads
         Thread(target=self.readfromproccessout).start()
@@ -49,12 +50,6 @@ class Console(tk.Frame):
     def destroy(self):
         """This is the function that is automatically called when the widget is destroyed."""
         self.alive = False
-        # write exit() to the console in order to stop it running
-        self.p.stdin.write("exit()\n".encode())
-        try:
-            self.p.stdin.flush()
-        except OSError:
-            pass
         # call the destroy methods to properly destroy widgets
         self.ttytext.destroy()
         tk.Frame.destroy(self)

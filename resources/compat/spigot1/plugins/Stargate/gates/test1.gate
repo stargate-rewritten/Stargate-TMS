@@ -1,0 +1,13 @@
+portal-open=WATER
+portal-closed=AIR
+button=CRIMSON_BUTTON
+toowner=false
+X=POLISHED_BASALT
+Y=BASALT
+-=POLISHED_BASALT
+
+XYYX 
+X..X 
+-..- 
+X*.X 
+XYYX 

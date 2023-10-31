@@ -4,6 +4,10 @@ import os.path as path
 class Directory(Enum):
     WORKSPACE = "workspace"
     RESOURCES = "resources"
+    RESOURCE_COMPAT = path.join(RESOURCES, "compat")
+    RESOURCE_COMPAT_SPIGOT_1 = path.join(RESOURCE_COMPAT, "spigot1")
+    RESOURCE_COMPAT_SPIGOT_2 = path.join(RESOURCE_COMPAT, "spigot2")
+    RESOURCE_COMPAT_BUNGEE = path.join(RESOURCE_COMPAT, "bungee")
     COMPILE = path.join(WORKSPACE, "resources")
     COMPILE_PAPER = path.join(COMPILE, "paper")
     COMPILE_SPIGOT = path.join(COMPILE, "spigot")
