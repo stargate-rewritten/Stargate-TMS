@@ -14,7 +14,7 @@ class FeaturesStage:
         self.lineReader = KBHit()
         
     def run(self):
-        print("Starting features instance...")
+        print("Features test.")
         self.features_console = Console(self.paperCmd, self.tkRoot, Directory.RUNTIME_FEATURES_PAPER.value)
         self.tkRoot.protocol("WM_DELETE_WINDOW", self._stop)
         Thread( target=self.handleInput ).start()
@@ -27,7 +27,7 @@ class FeaturesStage:
         
     def handleInput(self):
         try:
-            print("Press enter to go to the next stage")
+            print("  Press enter to go to the next stage")
             self.lineReader.getExit()
             self._stop()
         except EOFError:

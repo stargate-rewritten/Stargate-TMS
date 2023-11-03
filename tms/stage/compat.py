@@ -7,6 +7,7 @@ from tms.console import Console
 from tms.kbhit import KBHit
 from threading import Thread
 import tms.file.server
+import tms.file.util
 
 class CompatStage():
     
@@ -22,6 +23,7 @@ class CompatStage():
         print("  Refreshing settings and world files....")
         tms.file.server.refreshDataServer(Directory.RESOURCE_COMPAT_SPIGOT_1.value, Directory.RUNTIME_COMPAT_SPIGOT_1.value)
         tms.file.server.refreshDataServer(Directory.RESOURCE_COMPAT_SPIGOT_2.value, Directory.RUNTIME_COMPAT_SPIGOT_2.value)
+        tms.file.util.copyFilesInDirectoryToDirectory(Directory.RESOURCE_COMPAT_BUNGEE.value, Directory.RUNTIME_COMPAT_BUNGEE.value)
         Thread( target=self.startInstances ).start()
         self.handleInput()
     
@@ -38,6 +40,7 @@ class CompatStage():
         self.tkRoot.mainloop()
     
     def _stop(self):
+        print("  Stopping server instances...")
         self.lineReader.disable()
         threads = []
         for key in self.consoles:
@@ -50,6 +53,7 @@ class CompatStage():
         self.tkRoot.destroy()
         
     def restartInstances(self):
+        print("  Restarting...")
         threads = []
         for key in self.consoles:
             thread = Thread(target=self.consoles[key].restart)

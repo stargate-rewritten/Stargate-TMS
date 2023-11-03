@@ -129,6 +129,7 @@ class KBHit:
         if not self._enabled:
             raise EOFError("Reader is disabled.")
         sys.stdout.write("\n")
+        sys.stdout.flush()
         return line
     
     def getExit(self):

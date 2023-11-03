@@ -15,7 +15,7 @@ class NetworkStage():
         self.lineReader = KBHit()
     
     def run(self):
-        print("Starting network instances...")
+        print("Network test.")
         self.consoles = {
             "paper1" : Console(self.paperCmd, tkinter.Toplevel(self.tkRoot), Directory.RUNTIME_NETWORK_PAPER_1.value),
             "paper2" : Console(self.paperCmd, tkinter.Toplevel(self.tkRoot), Directory.RUNTIME_NETWORK_PAPER_2.value),
@@ -39,7 +39,7 @@ class NetworkStage():
     
     def handleInput(self):
         try:
-            print("Press enter to go to the next stage")
+            print("  Press enter to go to the next stage")
             self.lineReader.getExit()
             self._stop()
         except EOFError:
