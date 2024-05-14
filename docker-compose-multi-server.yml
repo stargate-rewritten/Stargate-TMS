@@ -1,6 +1,6 @@
 services:
     server1:
-        image: itzg/minecraft-server
+        image: itzg/minecraft-server:java21-graalvm
         environment:
             EULA: "TRUE"
             TYPE: "FOLIA"
@@ -13,7 +13,7 @@ services:
             - ./data/servers/server1:/data/plugins
     
     server2:
-        image: itzg/minecraft-server
+        image: itzg/minecraft-server:java21-graalvm
         environment:
             EULA: "TRUE"
             TYPE: "FOLIA"

@@ -1,6 +1,6 @@
 services:
     paper:
-        image: itzg/minecraft-server
+        image: itzg/minecraft-server:java21-graalvm
         tty: true
         stdin_open: true
         ports:
