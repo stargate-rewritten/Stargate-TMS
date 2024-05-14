@@ -1,3 +1,0 @@
-fixed1:-16,5,12:-16,5,15:0:1:270.0:-17,7,15:test1.gate:fixed2:user1:fb4cdad9-642b-358f-8f6f-717981c9f42b:false:false:false:world:false:false:false:false:false:false
-fixed2:-21,5,10:-18,5,10:1:0:180.0:-18,7,11:test1.gate:fixed1:user1:fb4cdad9-642b-358f-8f6f-717981c9f42b:false:false:false:world:false:false:false:false:false:false
-default1:-22,5,1:-22,5,4:0:1:270.0:-23,7,4:test1.gate::Central:fb4cdad9-642b-358f-8f6f-717981c9f42b:false:false:false:world:false:false:false:false:false:false
