@@ -153,3 +153,4 @@ cython_debug/
 
 workspace/
 cache.properties
+config.properties
