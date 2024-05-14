@@ -10,5 +10,6 @@ services:
             TYPE: "FOLIA"
             LEVEL_TYPE: "FLAT"
             MODE: "CREATIVE"
+            SPIGET: 28140
         volumes:
             - ./data/folia:/data/plugins

@@ -7,6 +7,8 @@ services:
             LEVEL_TYPE: "FLAT"
             MODE: "CREATIVE"
             ONLINE_MODE: "FALSE"
+            MODRINTH_PROJECTS: 1u6JkXh5
+            SPIGET: 28140
         volumes:
             - ./data/servers/server1:/data/plugins
     
@@ -18,6 +20,8 @@ services:
             LEVEL_TYPE: "FLAT"
             MODE: "CREATIVE"
             ONLINE_MODE: "FALSE"
+            MODRINTH_PROJECTS: 1u6JkXh5
+            SPIGET: 28140
         volumes:
             - ./data/servers/server1:/data/plugins
     

@@ -10,5 +10,7 @@ services:
             TYPE: "PAPER"
             LEVEL_TYPE: "FLAT"
             MODE: "CREATIVE"
+            MODRINTH_PROJECTS: 1u6JkXh5
+            SPIGET: 28140
         volumes:
             - ./data/paper:/data/plugins
