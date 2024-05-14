@@ -1,0 +1,36 @@
+services:
+    server1:
+        image: itzg/minecraft-server
+        environment:
+            EULA: "TRUE"
+            TYPE: "FOLIA"
+            LEVEL_TYPE: "FLAT"
+            MODE: "CREATIVE"
+            ONLINE_MODE: "FALSE"
+        volumes:
+            - ./data/servers/server1:/data/plugins
+    
+    server2:
+        image: itzg/minecraft-server
+        environment:
+            EULA: "TRUE"
+            TYPE: "FOLIA"
+            LEVEL_TYPE: "FLAT"
+            MODE: "CREATIVE"
+            ONLINE_MODE: "FALSE"
+        volumes:
+            - ./data/servers/server1:/data/plugins
+    
+    velocity:
+        image: itzg/bungeecord
+        tty: true
+        stdin_open: true
+        ports:
+            - "25565:25577"
+        environment:
+            TYPE: "VELOCITY"
+            DEBUG: "false"
+            ENABLE_RCON: "true"
+        volumes:
+            - ./velocity.toml:/server/velocity.toml
+        
