@@ -1,29 +1,33 @@
 services:
     server1:
         image: itzg/minecraft-server:java21-graalvm
+        tty: true
+        stdin_open: true
         environment:
             EULA: "TRUE"
-            TYPE: "FOLIA"
+            TYPE: "PAPER"
             LEVEL_TYPE: "FLAT"
             MODE: "CREATIVE"
             ONLINE_MODE: "FALSE"
             MODRINTH_PROJECTS: 1u6JkXh5
             SPIGET: 28140
         volumes:
-            - ./data/servers/server1:/data/plugins
+            - ./data/servers/server1:/data
     
     server2:
         image: itzg/minecraft-server:java21-graalvm
+        tty: true
+        stdin_open: true
         environment:
             EULA: "TRUE"
-            TYPE: "FOLIA"
+            TYPE: "PAPER"
             LEVEL_TYPE: "FLAT"
             MODE: "CREATIVE"
             ONLINE_MODE: "FALSE"
             MODRINTH_PROJECTS: 1u6JkXh5
             SPIGET: 28140
         volumes:
-            - ./data/servers/server1:/data/plugins
+            - ./data/servers/server2:/data
     
     velocity:
         image: itzg/bungeecord
@@ -34,7 +38,6 @@ services:
         environment:
             TYPE: "VELOCITY"
             DEBUG: "false"
-            ENABLE_RCON: "true"
         volumes:
-            - ./velocity.toml:/server/velocity.toml
+            - ./data/servers/velocity:/server
         
