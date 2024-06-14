@@ -1,4 +1,8 @@
 #!/bin/sh
+cd /GitHub/ColorBukkit
+git pull origin
+mvn clean install -DskipTests
+
 cd /GitHub/Stargate-Bukkit
 git pull origin
 mvn clean install -DskipTests

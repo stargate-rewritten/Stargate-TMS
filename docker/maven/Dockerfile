@@ -10,7 +10,8 @@ RUN mkdir GitHub && \
 	git clone "https://github.com/stargate-rewritten/Stargate-Mechanics" && \
 	git clone "https://github.com/stargate-rewritten/Stargate-Mapper" && \
 	git clone "https://github.com/stargate-rewritten/Stargate-Customizations" && \
-	git clone "https://github.com/stargate-rewritten/Stargate-Interfaces"
+	git clone "https://github.com/stargate-rewritten/Stargate-Interfaces" && \
+	git clone "https://github.com/Thorinwasher/ColorBukkit"
 
 RUN cd /GitHub/Stargate-Bukkit && \
 	mvn dependency:resolve --fail-never
@@ -25,6 +26,9 @@ RUN cd /GitHub/Stargate-Customizations && \
 	mvn dependency:resolve --fail-never
 
 RUN cd /GitHub/Stargate-Interfaces && \
+	mvn dependency:resolve --fail-never
+
+RUN cd /GitHub/ColorBukkit && \
 	mvn dependency:resolve --fail-never
 
 COPY /compile.sh /compile.sh
