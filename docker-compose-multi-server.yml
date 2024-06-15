@@ -1,8 +1,9 @@
 services:
     server1:
-        image: itzg/minecraft-server:java21-graalvm
+        image: itzg/minecraft-server:java21-jdk 
         tty: true
         stdin_open: true
+        privileged: true
         environment:
             EULA: "TRUE"
             TYPE: "PAPER"
@@ -15,9 +16,10 @@ services:
             - ./data/servers/server1:/data
     
     server2:
-        image: itzg/minecraft-server:java21-graalvm
+        image: itzg/minecraft-server:java21-jdk 
         tty: true
         stdin_open: true
+        privileged: true
         environment:
             EULA: "TRUE"
             TYPE: "PAPER"
