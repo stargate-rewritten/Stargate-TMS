@@ -10,8 +10,9 @@ def _insert_plugins(destination_folder: str):
 
 
 def init():
-    shutil.rmtree("./data/paper")
-    os.makedirs("./data/paper")
+    if path.exists("./data/paper"):
+        shutil.rmtree("./data/paper")
+    os.makedirs("./data/paper/plugins")
     _insert_plugins("./data/paper/plugins")
     process = subprocess.Popen(["podman", "compose", "-f", "docker-compose-paper.yml", "up"])
     process.wait()

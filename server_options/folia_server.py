@@ -10,8 +10,9 @@ def _insert_plugins(destination_folder: str):
 
 
 def init():
-    shutil.rmtree("./data/folia")
-    os.makedirs("./data/folia")
+    if path.exists("./data/spigot"):
+        shutil.rmtree("./data/spigot")
+    os.makedirs("./data/folia/plugins")
     _insert_plugins("./data/folia/plugins")
     process = subprocess.Popen(["podman", "compose", "-f", "docker-compose-folia.yml", "up"])
     process.wait()

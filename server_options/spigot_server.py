@@ -10,8 +10,9 @@ def _insert_plugins(destination_folder: str):
 
 
 def init():
-    shutil.rmtree("./data/spigot")
-    os.makedirs("./data/spigot")
+    if path.exists("./data/spigot"):
+        shutil.rmtree("./data/spigot")
+    os.makedirs("./data/spigot/plugins")
     _insert_plugins("./data/spigot/plugins")
     process = subprocess.Popen(["podman", "compose", "-f", "docker-compose-spigot.yml", "up"])
     process.wait()
