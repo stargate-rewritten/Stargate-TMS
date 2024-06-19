@@ -11,5 +11,6 @@ services:
             LEVEL_TYPE: "FLAT"
             MODE: "CREATIVE"
             SPIGET: 28140
+            SKIP_SUDO: true
         volumes:
             - ./data/folia:/data

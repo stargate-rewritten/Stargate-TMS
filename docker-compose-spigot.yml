@@ -12,5 +12,6 @@ services:
             MODE: "CREATIVE"
             MODRINTH_PROJECTS: 1u6JkXh5
             SPIGET: 28140
+            SKIP_SUDO: true
         volumes:
             - ./data/spigot:/data
